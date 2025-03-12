@@ -30,7 +30,7 @@ bobo = DriveBase(motor_a_esquerdo, motor_b_direito, 48, 116)
 bobo.settings(300, 1000, 400, 1000)
 
 branco = 74
-preto = 35
+preto = 35 #35
 
 ESQ = 1
 DIR = 2
@@ -130,7 +130,7 @@ def sensoresEs():
 # o index 0 é o da direita
 
 def tudobranco():
-    if CorEsquerdaVendra() > branco and CorEsquerdaEXvendra() > branco and CorDireitaVendra() > branco and CorDireitaEXvendra() > branco:
+    if CorEsquerdaVendra() >= branco and CorEsquerdaEXvendra() >= branco and CorDireitaVendra() >= branco and CorDireitaEXvendra() >= branco:
 
         wait(50)
 
@@ -321,38 +321,40 @@ def noventasemverde(): #ta funcionando bem, so tem q ajustar o kp e o kd melhor,
 
     # if CorEsquerdaVendra() < preto and CorEsquerdaEXvendra() < preto and CorDireitaVendra() > branco - 20 and CorDireitaEXvendra() > branco - 20:
     #     wait(25)
-    if CorEsquerdaVendra() < preto - 5 and CorEsquerdaEXvendra() < preto - 5 and CorDireitaVendra() > branco - 30 and CorDireitaEXvendra() > branco - 20:
-        reto(15)
+    if CorEsquerdaVendra() <= preto - 5 and CorEsquerdaEXvendra() <= preto - 20 and CorDireitaVendra() >= branco - 10 and CorDireitaEXvendra() >= branco + 10:
+        print(todos_linha())
+
+        reto(30)
         if tudobranco() == True:
             print("ESQ") 
-            print(todos_linha())
             beep()
             pararMotores()
-            reto(15)
+            #reto(30)
             # if tudobranco == True:
-                
-            while tudobranco() == True:
-                girarate(ESQ)
-
-            girargraus(30,ESQ)
-            reto(-30)
+            
+            girargraus(60,ESQ)
+            girarate(ESQ)
+            reto(40, TRAS)
+            #reto(-30)
 
     # if CorDireitaVendra() < preto and CorDireitaEXvendra() < preto and CorEsquerdaVendra() > branco - 20 and CorEsquerdaEXvendra() > branco - 20:
     #     wait(25)
-    if CorDireitaVendra() < preto - 5 and CorDireitaEXvendra() < preto - 5 and CorEsquerdaVendra() > branco - 30 and CorEsquerdaEXvendra() > branco - 20:
-        reto(15)
+    if CorDireitaVendra() <= preto - 5 and CorDireitaEXvendra() <= preto - 5 and CorEsquerdaVendra() >= branco - 30 and CorEsquerdaEXvendra() >= branco - 20:
+        print(todos_linha())
+        
+        reto(30)
         if tudobranco() == True:
             print("DIR") 
-            print(todos_linha())
             beep()
             pararMotores()
-            reto(15)
+            #reto(30)
             # if tudobranco == True:
             
-            while tudobranco() == True:
-                girarate(DIR)
-            girargraus(30,DIR)
-            reto(-30)
+            
+            girargraus(60,DIR)
+            girarate(DIR)
+            reto(40, TRAS)
+            #reto(-30)
 
 
     ## esses numeros que eu to subtraindo nas condicoes q nem o "CorEsquerdaVendra() < preto - 10"
@@ -377,7 +379,7 @@ def verde():
     #ESQ
     elif (checarcor(sensordecorEs()) == VERDE and checarcor(sensordecorDir()) != VERDE):
         reto(7)
-        if tempoPretoEsEX.tempo() < tempoVerdeEs.tempo():
+        if tempoPretoEsEX.tempo() > tempoVerdeEs.tempo():
 
             reto(30)
             girargraus(70, ESQ)
@@ -389,7 +391,7 @@ def verde():
     #DIR
     elif checarcor(sensordecorEs()) != VERDE and checarcor(sensordecorDir()) == VERDE:
         reto(7)
-        if tempoPretoDirEX.tempo() < tempoVerdeDir.tempo():
+        if tempoPretoDirEX.tempo() > tempoVerdeDir.tempo():
         
             reto(30)
             girargraus(70, DIR)
@@ -484,10 +486,15 @@ motor_b_direito.reset_angle(0)
 # girargraus_errado(90, ESQ)
 
 run = 1
+
+#while True:
+#    print(sensorLinha.read(2))
+#    wait(1000)    
+
 while run == 1:
     relogio.reseta()
 
-    # noventasemverde()
+    noventasemverde()
     verde()
     # obstaculo()
     # gap()
