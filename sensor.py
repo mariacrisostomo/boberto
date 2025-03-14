@@ -1,5 +1,6 @@
 from definicoes import ev3, sensorLinha, giroscopio, placa 
 from definicoes import bobo
+import definicoes as defs
 
 def sensoresdecor():
     return sensorLinha.read(2)[20], sensorLinha.read(2)[21], sensorLinha.read(2)[22], \
@@ -38,7 +39,7 @@ def checarcor(sensor):
     v = sensor[2]
 
     # verde
-    if (57 >= h >= 20) and (s >= 32) and (v > 10):
+    if (55 >= h >= 22) and (s >= 33) and (v > 10):
 
         # wait(25)
 
@@ -97,7 +98,7 @@ def sensoresEs():
 def tudobranco():
     if CorEsquerdaVendra() > branco and CorEsquerdaEXvendra() > branco and CorDireitaVendra() > branco and CorDireitaEXvendra() > branco:
 
-        wait(50)
+        defs.wait(50)
 
         if CorEsquerdaVendra() > branco and CorEsquerdaEXvendra() > branco and CorDireitaVendra() > branco and CorDireitaEXvendra() > branco:
             return True
@@ -108,7 +109,7 @@ def viupreto():
 
     if CorEsquerdaVendra() < preto or CorEsquerdaEXvendra() < preto or CorDireitaVendra() < preto or CorDireitaEXvendra() < preto:
 
-        wait(50)
+        defs.wait(50)
 
         if CorEsquerdaVendra() < preto or CorEsquerdaEXvendra() < preto or CorDireitaVendra() < preto or CorDireitaEXvendra() < preto:
             return True 

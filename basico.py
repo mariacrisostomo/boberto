@@ -41,7 +41,7 @@ def girargraus(graus, direcao):
         atual = giro()
 
         while giro() <= (atual + grauss):
-            print(giro())
+            # print(giro())
 
             motor_a_esquerdo.dc(vb)
             motor_b_direito.dc(-vb)
@@ -51,7 +51,7 @@ def girargraus(graus, direcao):
         atual = giro()
 
         while giro() >= (atual - grauss):
-            print(giro())
+            # print(giro())
 
             motor_a_esquerdo.dc(-vb)
             motor_b_direito.dc(vb)
@@ -71,12 +71,12 @@ def reto(mm, dir = FRENTE, vb = 90): #em mm
 
         while angle_d() < ang_inicial_d + dist and angle_e() < ang_inicial_e + dist:
             
-            crono.cronoreset()
+            crono.reset()
             motor_a_esquerdo.dc(vb)
             motor_b_direito.dc(vb)
 
-        motor_a_esquerdo.hold() #hold para a inercia do robo
-        motor_b_direito.hold()
+        # motor_a_esquerdo.hold() #hold para a inercia do robo
+        # motor_b_direito.hold()
         
         # beep()
 
@@ -86,27 +86,27 @@ def reto(mm, dir = FRENTE, vb = 90): #em mm
 
         while angle_d() > ang_inicial_d - dist and angle_e() > ang_inicial_e - dist:
 
-            cronoreset()
+            crono.reset()
             motor_a_esquerdo.dc(-vb)
             motor_b_direito.dc(-vb)
 
-        motor_a_esquerdo.hold()
-        motor_b_direito.hold()
+        # motor_a_esquerdo.hold()
+        # motor_b_direito.hold()
 
         # beep(1000, 50)
 
 def girarate(direc): #GIRA ATE VER PRETO
     if sensor.tudobranco() == True:
         if direc == ESQ:
-            while tudobranco() == True:
-                cronoreset()
+            while sensor.tudobranco() == True:
+                crono.reset()
                 motor_a_esquerdo.dc(80)
                 motor_b_direito.dc(-80)
             basic.girargraus(30, ESQ)
 
         elif direc == DIR:
             while sensor.tudobranco() == True:
-                cronoreset()
+                crono.reset()
                 motor_a_esquerdo.dc(-80)
                 motor_b_direito.dc(80)
             basic.girargraus(30, DIR)

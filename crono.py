@@ -15,9 +15,12 @@ PretoDir = Cronometro()
 PretoEs = Cronometro()
 PretoEsEX = Cronometro()
 
+FezVerde = Cronometro()
+
 #INICIA OS CRONOMETROS
 relogio.carrega()
 
+FezVerde.inicia()
 VerdeDir.inicia()
 VerdeMeio.inicia()
 VerdeEs.inicia()
@@ -38,7 +41,7 @@ VERDE = 4
 FRENTE = 5
 TRAS = 6
 
-def cronoreset():
+def reset():
     ##reset dos cronometros, pra mostrar quanto tempo faz des de o ultimo momento em que eles viram algo
     if checarcor(sensor.sensordecorDir()) == VERDE: 
         VerdeDir.reseta()

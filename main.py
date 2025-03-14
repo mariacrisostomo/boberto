@@ -21,6 +21,7 @@ def erro():
 run = 1
 while run == 1:
     crono.relogio.reseta()
+    crono.reset()
 
     #region RAMPA (TA DANDO CERTO)
     # # checa se o robo ta na rampa
@@ -40,12 +41,12 @@ while run == 1:
     func.verde()
     # func.gap()
 
-    crono.cronoreset()
+    
 
     erroo = erro()
     p = erroo * kp 
     d = erroo - erro_anterior * kd
-    vb = 70
+    vb = 75
 
     
     valor = p + d #variacao da potencia do motor

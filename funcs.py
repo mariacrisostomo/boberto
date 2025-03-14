@@ -2,7 +2,7 @@ import basico as basic
 import definicoes
 import sensor
 from sensor import checarcor
-import motor
+from motor import motor_a_esquerdo, motor_b_direito
 import crono
 
 branco = 74
@@ -32,7 +32,7 @@ def girar90(): #ta funcionando bem, so tem q ajustar o kp e o kd melhor, e a con
                 
             basic.girarate(ESQ)
             basic.girargraus(30,ESQ)
-            basic.reto(30, ATRAS)
+            basic.reto(30, TRAS)
 
     if sensor.CorDireitaVendra() < preto - 5 and sensor.CorDireitaEXvendra() < preto - 5 and\
         sensor.CorEsquerdaVendra() > branco - 30 and sensor.CorEsquerdaEXvendra() > branco - 20:
@@ -46,7 +46,7 @@ def girar90(): #ta funcionando bem, so tem q ajustar o kp e o kd melhor, e a con
 
             basic.girarate(DIR)
             basic.girargraus(30,DIR)
-            basic.reto(30, ATRAS)
+            basic.reto(30, TRAS)
 
 
     ## esses numeros que eu to subtraindo nas condicoes q nem o "CorEsquerdaVendra() < preto - 10"
@@ -54,47 +54,72 @@ def girar90(): #ta funcionando bem, so tem q ajustar o kp e o kd melhor, e a con
     ## eu to preferindo ver cada sensor individualmente pq e mais preciso doq calcular a media, mas precisa calibrar bem esses valores
 
 def verde(): 
+
+    espera = 1400
     #CHEGOU TORTO
-    if checarcor(sensor.sensordecorMeio()) == VERDE: 
-        if crono.PretoDir.tempo() < crono.VerdeMeio.tempo() and crono.PretoEs.tempo() < crono.VerdeMeio.tempo():
-            basic.reto(60, TRAS)
+    if crono.VerdeMeio.tempo() < 100 and crono.FezVerde.tempo() > espera: ## CERTO
+        basic.reto(60, TRAS)
 
     #180
-    elif checarcor(sensor.sensordecorEs()) == VERDE and checarcor(sensor.sensordecorDir()) == VERDE:
+    elif crono.VerdeEs.tempo() < 150 and crono.VerdeDir.tempo() < 150 and crono.FezVerde.tempo() > espera:
         # reto(70)
+        crono.FezVerde.reseta()
 
-        basic.girargraus(180, DIR)
-        basic.reto(30, TRAS)
         print(sensor.sensoresdecor2())
+        basic.girargraus(180, DIR)
+        basic.reto(20, TRAS)
         basic.beep(100)
 
     #ESQ
-    elif (checarcor(sensor.sensordecorEs()) == VERDE and checarcor(sensor.sensordecorDir()) != VERDE):
-        basic.reto(7)
-        if crono.PretoEsEX.tempo() < crono.VerdeEs.tempo():
+    elif crono.VerdeEs.tempo() < 100 and crono.VerdeDir.tempo() > 500 and crono.FezVerde.tempo() > espera:
+        print("esq")
+        print(sensor.sensoresdecor2())
+        print(crono.PretoDirEX.tempo(),crono.VerdeDir.tempo())
+        print()
 
-            basic.reto(30)
-            basic.girargraus(70, ESQ)
-            basic.girarate(ESQ)
-            basic.reto(10, TRAS)
-            print(sensor.sensoresdecor2())
-            basic.beep(300)
+        basic.reto(10)
+        if crono.PretoEsEX.tempo() < crono.VerdeEs.tempo():
+            crono.FezVerde.reseta()
+            if crono.VerdeDir.tempo() < 100:
+                print(sensor.sensoresdecor2())
+                basic.girargraus(180, DIR)
+                basic.reto(20, TRAS)
+                basic.beep(100)
+            else:
+                print(crono.PretoEsEX.tempo(),crono.VerdeEs.tempo())
+
+                basic.reto(30)
+                basic.girargraus(70, ESQ)
+                basic.girarate(ESQ)
+                basic.reto(20, TRAS)
+                basic.beep(300)
 
     #DIR
-    elif checarcor(sensor.sensordecorEs()) != VERDE and checarcor(sensor.sensordecorDir()) == VERDE:
-        basic.reto(7)
+    elif crono.VerdeEs.tempo() > 500 and crono.VerdeDir.tempo() < 100 and crono.FezVerde.tempo() > espera:
+        print("dir")
+        print(sensor.sensoresdecor2())
+        print(crono.PretoDirEX.tempo(),crono.VerdeDir.tempo())
+
+        basic.reto(10)
         if crono.PretoDirEX.tempo() < crono.VerdeDir.tempo():
-        
-            basic.reto(30)
-            girargraus(70, DIR)
-            girarate(DIR)
-            print(sensor.sensoresdecor2())
-            reto(10, TRAS)
-            beep(1000)
+            crono.FezVerde.reseta()
+            if crono.VerdeEs.tempo() < 120:
+                print(sensor.sensoresdecor2())
+                basic.girargraus(180, DIR)
+                basic.reto(20, TRAS)
+                basic.beep(100)
+            else:
+                print(crono.PretoDirEX.tempo(),crono.VerdeDir.tempo())
+            
+                basic.reto(30)
+                basic.girargraus(70, DIR)
+                basic.girarate(DIR)
+                basic.reto(20, TRAS)
+                basic.beep(1000)
 
 def obstaculo(): #FUNCIONANDO
-    if dist() < 100:
-        print(dist())
+    if sensor.dist() < 100:
+        print(sensor.dist())
         basic.beep(100, 100)
         # reto(30)
         basic.girargraus(90, ESQ)
