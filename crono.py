@@ -17,10 +17,14 @@ PretoEsEX = Cronometro()
 
 FezVerde = Cronometro()
 
+Fez90 = Cronometro()
+
 #INICIA OS CRONOMETROS
 relogio.carrega()
 
 FezVerde.inicia()
+Fez90.inicia()
+
 VerdeDir.inicia()
 VerdeMeio.inicia()
 VerdeEs.inicia()
@@ -30,7 +34,7 @@ PretoEs.inicia()
 PretoEsEX.inicia()
 
 branco = 74
-preto = 35
+preto = 20
 
 ESQ = 1
 DIR = 2
@@ -56,10 +60,10 @@ def reset():
         basic.beep()
 
     if sensor.CorDireitaEXvendra() < preto:
-        PretoEsEX.reseta()
-    if sensor.CorDireitaVendra() < preto:
-        PretoEs.reseta()
-    if sensor.CorEsquerdaVendra() < preto:
-        PretoDir.reseta()
-    if sensor.CorEsquerdaEXvendra() < preto:
         PretoDirEX.reseta()
+    if sensor.CorDireitaVendra() < preto:
+        PretoDir.reseta()
+    if sensor.CorEsquerdaVendra() < preto:
+        PretoEs.reseta()
+    if sensor.CorEsquerdaEXvendra() < preto:
+        PretoEsEX.reseta()

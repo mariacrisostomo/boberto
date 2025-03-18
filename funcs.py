@@ -20,33 +20,45 @@ TRAS = 6
 def girar90(): #ta funcionando bem, so tem q ajustar o kp e o kd melhor, e a condicao um pouquinho e tentar checar mais
     
     ##se ver 90 checar se tem linha dps, pq se tiver e pra ignorar
-    if sensor.CorEsquerdaVendra() < preto - 5 and sensor.CorEsquerdaEXvendra() < preto - 20 and\
-        sensor.CorDireitaVendra() > branco - 10 and sensor.CorDireitaEXvendra() > branco + 20:
+    # ESQ
+    if crono.PretoEsEX.tempo() < crono.PretoDirEX.tempo() and crono.PretoEsEX.tempo() < 100 and crono.PretoDirEX.tempo() > 1000:
         print(sensor.todos_linha())
+        basic.beep(500, 50)
+        if crono.Fez90.tempo() > 800:
 
-        basic.reto(30)
-        if sensor.tudobranco() == True:
-            print("ESQ") 
-            basic.beep()
-            basic.pararMotores()
-                
-            basic.girarate(ESQ)
-            basic.girargraus(30,ESQ)
-            basic.reto(30, TRAS)
+            # basic.pararMotores()
+            # input("esq")
+            basic.reto(30)
+             
+            if sensor.tudobranco() == True:
+                print("ESQ") 
+                basic.beep()
+                # basic.pararMotores()
+                # basic.girarate(ESQ)
+                basic.girargraus(90,ESQ)
+                basic.reto(10, TRAS)
 
-    if sensor.CorDireitaVendra() < preto - 5 and sensor.CorDireitaEXvendra() < preto - 5 and\
-        sensor.CorEsquerdaVendra() > branco - 30 and sensor.CorEsquerdaEXvendra() > branco - 20:
+                crono.Fez90.reseta()
+
+    # DIR
+    if crono.PretoEsEX.tempo() > crono.PretoDirEX.tempo() and crono.PretoEsEX.tempo() > 1000 and crono.PretoDirEX.tempo() < 100:
         print(sensor.todos_linha())
-        basic.reto(15)
+        basic.beep()
+        if crono.Fez90.tempo() > 800:
 
-        if sensor.tudobranco() == True:
-            print("DIR") 
-            basic.beep()
-            basic.pararMotores()
+            # basic.pararMotores()
+            # input("dir")
+            basic.reto(30)
+            if sensor.tudobranco() == True:
+                print("DIR") 
+                basic.beep()
+                # basic.pararMotores()
 
-            basic.girarate(DIR)
-            basic.girargraus(30,DIR)
-            basic.reto(30, TRAS)
+                # basic.girarate(DIR)
+                basic.girargraus(90,DIR)
+                basic.reto(10, TRAS)
+
+                crono.Fez90.reseta()
 
 
     ## esses numeros que eu to subtraindo nas condicoes q nem o "CorEsquerdaVendra() < preto - 10"
@@ -55,7 +67,7 @@ def girar90(): #ta funcionando bem, so tem q ajustar o kp e o kd melhor, e a con
 
 def verde(): 
 
-    espera = 1400
+    espera = 1600
     #CHEGOU TORTO
     if crono.VerdeMeio.tempo() < 100 and crono.FezVerde.tempo() > espera: ## CERTO
         basic.reto(60, TRAS)
@@ -77,7 +89,7 @@ def verde():
         print(crono.PretoDirEX.tempo(),crono.VerdeDir.tempo())
         print()
 
-        basic.reto(10)
+        basic.reto(18)
         if crono.PretoEsEX.tempo() < crono.VerdeEs.tempo():
             crono.FezVerde.reseta()
             if crono.VerdeDir.tempo() < 100:
@@ -100,7 +112,7 @@ def verde():
         print(sensor.sensoresdecor2())
         print(crono.PretoDirEX.tempo(),crono.VerdeDir.tempo())
 
-        basic.reto(10)
+        basic.reto(18)
         if crono.PretoDirEX.tempo() < crono.VerdeDir.tempo():
             crono.FezVerde.reseta()
             if crono.VerdeEs.tempo() < 120:

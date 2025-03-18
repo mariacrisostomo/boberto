@@ -5,8 +5,21 @@ import basico as basic
 import funcs as func
 import definicoes as defs
 import sensor
+from definicoes import wait
 
-kp = 1.27 #1.27 
+branco = 74
+preto = 35
+
+ESQ = 1
+DIR = 2
+
+VERMELHO = 3
+VERDE = 4
+
+FRENTE = 5
+TRAS = 6
+
+kp = 1.4 # 1.27 
 kd = 1.1 # 1
 erro_anterior = 0
 rampa = False
@@ -37,8 +50,8 @@ while run == 1:
     #endregion
     
     # func.obstaculo()
-    # func.girar90()
-    func.verde()
+    func.girar90()
+    # func.verde()
     # func.gap()
 
     
@@ -51,9 +64,12 @@ while run == 1:
     
     valor = p + d #variacao da potencia do motor
 
+    # print(sensor.todos_linha())
     motor_a_esquerdo.dc(vb - valor) # -
     motor_b_direito.dc(vb + valor) # +
 
+    # print(sensor.todos_linha())
+    
     erro_anterior = erroo
 
     while crono.relogio.tempo() < 25:

@@ -20,7 +20,7 @@ def sensoresdecor2():
     return sensordecorEs(), sensordecorMeio(), sensordecorDir()
 
 # SENSORES DE SEGUIR LINHA
-branco = 74
+branco = 85
 preto = 35
 
 ESQ = 1
@@ -97,22 +97,14 @@ def sensoresEs():
 
 def tudobranco():
     if CorEsquerdaVendra() > branco and CorEsquerdaEXvendra() > branco and CorDireitaVendra() > branco and CorDireitaEXvendra() > branco:
-
-        defs.wait(50)
-
-        if CorEsquerdaVendra() > branco and CorEsquerdaEXvendra() > branco and CorDireitaVendra() > branco and CorDireitaEXvendra() > branco:
-            return True
+        return True
     else:
         return False
 
 def viupreto():
 
     if CorEsquerdaVendra() < preto or CorEsquerdaEXvendra() < preto or CorDireitaVendra() < preto or CorDireitaEXvendra() < preto:
-
-        defs.wait(50)
-
-        if CorEsquerdaVendra() < preto or CorEsquerdaEXvendra() < preto or CorDireitaVendra() < preto or CorDireitaEXvendra() < preto:
-            return True 
+        return True 
     else:
         return False
 
