@@ -20,5 +20,5 @@ placa = LUMPDevice(Port.S4) #S4
 motor_a_esquerdo = Motor(Port.A, Direction.CLOCKWISE) #antihorario
 motor_b_direito = Motor(Port.B, Direction.COUNTERCLOCKWISE) #horario 
 
-bobo = DriveBase(motor_a_esquerdo, motor_b_direito, 48, 116)
+bobo = DriveBase(motor_a_esquerdo, motor_b_direito, 48, 116)#48, 116
 bobo.settings(300, 1000, 400, 1000)

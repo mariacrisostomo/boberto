@@ -1,6 +1,5 @@
-from definicoes import ev3, sensorLinha, giroscopio, placa 
-from definicoes import bobo
-import definicoes as defs
+from definicoes import sensorLinha, placa 
+import basico as basic
 
 def sensoresdecor():
     return sensorLinha.read(2)[20], sensorLinha.read(2)[21], sensorLinha.read(2)[22], \
@@ -31,15 +30,20 @@ VERDE = 4
 
 FRENTE = 5
 TRAS = 6
+PRATA = 7
+
 #checa se está vendo vermelho
 def checarcor(sensor):
+    
 
     h = sensor[0]
     s = sensor[1]
     v = sensor[2]
 
+    # print(h,s,v)
+
     # verde
-    if (55 >= h >= 22) and (s >= 33) and (v > 10):
+    if (53 >= h >= 24) and (s >= 35) and (v > 10):
 
         # wait(25)
 
@@ -50,6 +54,13 @@ def checarcor(sensor):
             # beep(100,50)
         # print(VERDE)
         return VERDE
+    
+    #prata   
+    if (3 >= h) and (3 >= s) and (v > 110):
+
+        # basic.beep()
+        return PRATA
+
         
     # elif ((15 >= h >= 0) or (125 >= h >= 103)) and (s >= 35) and (v > 9): #VERMELHO
 
@@ -97,6 +108,7 @@ def sensoresEs():
 
 def tudobranco():
     if CorEsquerdaVendra() > branco and CorEsquerdaEXvendra() > branco and CorDireitaVendra() > branco and CorDireitaEXvendra() > branco:
+        basic.beep()
         return True
     else:
         return False
@@ -107,12 +119,6 @@ def viupreto():
         return True 
     else:
         return False
-
-def giro(): #angulo
-    return giroscopio.read(0)[2]
-
-def inclinacao():
-    return giroscopio.read(0)[0]
 
 def dist(): #sensor a laser, medida em milimetros
     return placa.read(0)[2]

@@ -19,6 +19,10 @@ FezVerde = Cronometro()
 
 Fez90 = Cronometro()
 
+RampaSubiu = Cronometro()
+RampaDesceu = Cronometro()
+
+
 #INICIA OS CRONOMETROS
 relogio.carrega()
 
@@ -33,6 +37,9 @@ PretoDir.inicia()
 PretoEs.inicia()
 PretoEsEX.inicia()
 
+RampaSubiu.inicia()
+RampaDesceu.inicia()
+
 branco = 74
 preto = 20
 
@@ -44,6 +51,7 @@ VERDE = 4
 
 FRENTE = 5
 TRAS = 6
+PRATA = 7
 
 def reset():
     ##reset dos cronometros, pra mostrar quanto tempo faz des de o ultimo momento em que eles viram algo
